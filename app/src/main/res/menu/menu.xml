@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mapa"
+        android:icon="@drawable/mapa"
+        android:title="Ubicacion"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/nosotros"
+        android:icon="@drawable/nosotros"
+        android:title="Nosotros"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mision"
+        android:icon="@drawable/mision"
+        android:title="Mision"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/vision"
+        android:icon="@drawable/vision"
+        android:title="Vision"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/contactanos"
+        android:title="Agregar" />
+    <item android:title="Consultar" />
+    <item android:title="Actualizar" />
+    <item
+        android:id="@+id/eliminar"
+        android:title="Eliminar" />
+    <item android:title="Pasteles" />
+    <item
+        android:id="@+id/panel"
+        android:icon="@drawable/service"
+        android:title="Servicio"
+        app:showAsAction="always" />
+</menu>
