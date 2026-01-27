@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 .setMessage("¿Desea salir de la aplicación?")
                 .setPositiveButton("Si"){ dialog, which ->
                     Toast.makeText(applicationContext, "Aplicacion cerrada", Toast.LENGTH_SHORT).show()
-                    finish()
+                    finishAffinity()
                 }
                 .setNegativeButton("No"){ dialog, which ->
                     Toast.makeText(applicationContext, "Cancelado", Toast.LENGTH_SHORT).show()
