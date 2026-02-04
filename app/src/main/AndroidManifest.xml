@@ -27,9 +27,6 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MapaActivity"
-            android:exported="false" />
-        <activity
             android:name=".NosotrosActivity"
             android:exported="false" />
         <activity

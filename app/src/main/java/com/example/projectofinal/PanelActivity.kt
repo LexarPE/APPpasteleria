@@ -31,12 +31,10 @@ class PanelActivity : AppCompatActivity()  {
 
 
         btnReturnHomePanel.setOnClickListener {
-            val viewPenel = Intent(this, HomeActivity::class.java)
-            startActivity(viewPenel)
+            val viewPanel = Intent(this, HomeActivity::class.java)
+            startActivity(viewPanel)
         }
 
-        btnSearchPanel.setOnClickListener {
-
-        }
+        //btnSearchPanel.setOnClickListener { }
     }
 }

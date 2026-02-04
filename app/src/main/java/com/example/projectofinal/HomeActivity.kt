@@ -2,6 +2,7 @@ package com.example.projectofinal
 
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -63,7 +64,16 @@ class HomeActivity : AppCompatActivity()  {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
-            R.id.mapa -> startActivity(Intent(this, MapaActivity::class.java))
+            R.id.mapa -> {
+                //Uri -> Ubicacion
+                val gmmIntentUri = Uri.parse("geo:0,0?q=-12.14794293532635, -77.0226754663218(Alanya Repostería")
+                //Redireccionar al view establecido (Google maps)
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                //Interfaz vinculada
+                mapIntent.setPackage("com.google.android.apps.maps")
+                //Ejecuta la redireccion al view de  google maps
+                startActivity(mapIntent)
+            }
             R.id.nosotros ->startActivity(Intent(this, NosotrosActivity::class.java))
             R.id.mision -> startActivity(Intent(this, MisionActivity::class.java))
             R.id.vision -> startActivity(Intent(this, VisionActivity::class.java))
