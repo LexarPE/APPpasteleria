@@ -3,6 +3,7 @@ package com.example.projectofinal
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -12,6 +13,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.example.projectofinal.api.EndPoints
+import com.example.projectofinal.models.Usuario
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class LoginActivity : AppCompatActivity()  {
@@ -53,15 +64,8 @@ class LoginActivity : AppCompatActivity()  {
 
 
         btnValidarLogin.setOnClickListener {
-            val getUsuario = usuario.text.trim().toString()
-            val getPass = pass.text.trim().toString()
-            if("Admin".equals(getUsuario) && "Admin".equals(getPass)){
-                val viewPrincipal = Intent(this, HomeActivity::class.java)
-                startActivity(viewPrincipal)
-            }
-            else{
-                alerta()
-            }
+            getUsuario()
+
 
         }
 
@@ -84,6 +88,78 @@ class LoginActivity : AppCompatActivity()  {
 
 
 
+    }
+
+//------> POST LOGIN
+    private fun getUsuario(){
+
+        val Usuario = usuario.text.trim().toString()
+        val Pass = pass.text.trim().toString()
+
+
+        //creating volley string request
+        val params = JSONObject()
+        params.put("nombre", Usuario)
+        params.put("clave", Pass)
+
+
+
+        val stringRequest = object : JsonObjectRequest(Request.Method.POST,EndPoints.URL_GET_USER,params,
+            { response ->
+                val auth = response.optBoolean("auth")
+                if (auth) {
+                    Toast.makeText(applicationContext, response.getString("msg"), Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    alerta()
+                }
+            },
+            { error ->
+                Toast.makeText(applicationContext, "Ocurrio un error durante la peticion", Toast.LENGTH_LONG).show()
+            }) {
+
+        }
+
+        //adding request to queue
+        VolleySingleton.instance?.addToRequestQueue(stringRequest)
+    }
+
+
+
+    //------> POST REGISTER
+    private fun addUsuario(){
+
+        val Usuario = usuario.text.trim().toString()
+        val Pass = pass.text.trim().toString()
+
+
+        //creating volley string request
+        val params = JSONObject()
+        params.put("nombre", Usuario)
+        params.put("clave", Pass)
+
+
+
+        val stringRequest = object : JsonObjectRequest(Request.Method.POST,EndPoints.URL_ADD_USER,params,
+            { response ->
+                val auth = response.optBoolean("auth")
+                if (auth) {
+                    Toast.makeText(applicationContext, response.getString("msg"), Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    alerta()
+                }
+            },
+            { error ->
+                Toast.makeText(applicationContext, "Ocurrio un error durante la peticion", Toast.LENGTH_LONG).show()
+            }) {
+
+        }
+
+        //adding request to queue
+        VolleySingleton.instance?.addToRequestQueue(stringRequest)
     }
 
     fun alerta(){
