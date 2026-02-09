@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.example.projectofinal.api.EndPoints
 import com.example.projectofinal.models.Usuario
+import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -92,19 +93,12 @@ class LoginActivity : AppCompatActivity()  {
 
 //------> POST LOGIN
     private fun getUsuario(){
+        val getUsuario = Usuario(usuario.text.trim().toString(),pass.text.trim().toString())
 
-        val Usuario = usuario.text.trim().toString()
-        val Pass = pass.text.trim().toString()
+        //Convierte el objeto a Json
+        val params = JSONObject(Gson().toJson(getUsuario))
 
-
-        //creating volley string request
-        val params = JSONObject()
-        params.put("nombre", Usuario)
-        params.put("clave", Pass)
-
-
-
-        val stringRequest = object : JsonObjectRequest(Request.Method.POST,EndPoints.URL_GET_USER,params,
+        val stringRequest = object : JsonObjectRequest(Request.Method.POST,EndPoints.Usuario.GET,params,
             { response ->
                 val auth = response.optBoolean("auth")
                 if (auth) {
@@ -121,7 +115,7 @@ class LoginActivity : AppCompatActivity()  {
 
         }
 
-        //adding request to queue
+
         VolleySingleton.instance?.addToRequestQueue(stringRequest)
     }
 
@@ -141,7 +135,7 @@ class LoginActivity : AppCompatActivity()  {
 
 
 
-        val stringRequest = object : JsonObjectRequest(Request.Method.POST,EndPoints.URL_ADD_USER,params,
+        val stringRequest = object : JsonObjectRequest(Request.Method.POST,EndPoints.Usuario.ADD,params,
             { response ->
                 val auth = response.optBoolean("auth")
                 if (auth) {
